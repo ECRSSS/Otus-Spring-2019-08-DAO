@@ -1,0 +1,1 @@
+insert into AUTHOR (FIRST_NAME,LAST_NAME) values ('author', 'one');
