@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Genre {
     @NonNull
-    private int id;
+    private Integer id;
     @NonNull
     private String title;
 }

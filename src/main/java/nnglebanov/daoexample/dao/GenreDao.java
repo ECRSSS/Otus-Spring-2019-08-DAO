@@ -1,6 +1,5 @@
-package nnglebanov.daoexample.dao.genre;
+package nnglebanov.daoexample.dao;
 
-import nnglebanov.daoexample.domain.Author;
 import nnglebanov.daoexample.domain.Genre;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public interface GenreDao {
 
     void deleteById(int id);
 
-    Author findById(int id);
+    Genre findById(int id);
 
     List<Genre> findAll();
 

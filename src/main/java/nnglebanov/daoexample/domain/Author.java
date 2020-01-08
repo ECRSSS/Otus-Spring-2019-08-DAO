@@ -1,16 +1,18 @@
 package nnglebanov.daoexample.domain;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Getter
+@Data
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class Author {
-    @NonNull
-    private int id;
+    private Integer id;
     @NonNull
     private String firstName;
     @NonNull
     private String lastName;
+
 }

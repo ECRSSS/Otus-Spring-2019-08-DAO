@@ -4,16 +4,17 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+
 @Getter
 @RequiredArgsConstructor
 public class Book {
 
     @NonNull
-    private int id;
+    private Integer id;
     @NonNull
     private String title;
     @NonNull
-    private int authorId;
+    private Integer authorId;
     @NonNull
-    private int genreId;
+    private Integer genreId;
 }

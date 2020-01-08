@@ -1,4 +1,4 @@
-package nnglebanov.daoexample.dao.author;
+package nnglebanov.daoexample.dao;
 
 import nnglebanov.daoexample.domain.Author;
 
