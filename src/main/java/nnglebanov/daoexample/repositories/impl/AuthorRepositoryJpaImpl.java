@@ -5,7 +5,10 @@ import nnglebanov.daoexample.repositories.AuthorRepositoryJpa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +50,9 @@ public class AuthorRepositoryJpaImpl implements AuthorRepositoryJpa {
 
     @Override
     public List<Author> findAll() {
-        EntityGraph<?> entityGraph = em.getEntityGraph("author-books");
+        //EntityGraph<?> entityGraph = em.getEntityGraph("author-books");
         TypedQuery<Author> query = em.createQuery("select a from Author a join fetch a.books", Author.class);
-        query.setHint("javax.persistence.fetchgraph", entityGraph);
+        //query.setHint("javax.persistence.fetchgraph", entityGraph);
         return query.getResultList();
     }
 }

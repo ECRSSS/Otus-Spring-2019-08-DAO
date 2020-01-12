@@ -2,14 +2,17 @@ package nnglebanov.daoexample.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "BOOKS")
 @NamedEntityGraph(name = "book-authors",
@@ -22,9 +25,19 @@ public class Book {
     private Integer id;
     private String bookTitle;
     private Date createdAt;
-    @ManyToMany(mappedBy = "books")
-    private Set<Author> authors;
-    @ManyToMany(mappedBy = "books")
-    private Set<Genre> genres;
+    @ManyToMany
+    @JoinTable(
+            name = "AUTHORS_BOOKS",
+            joinColumns = { @JoinColumn(name = "author_id") },
+            inverseJoinColumns = { @JoinColumn(name = "book_id") }
+    )
+    private Set<Author> authors = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "GENRES_BOOKS",
+            joinColumns = { @JoinColumn(name = "genre_id") },
+            inverseJoinColumns = { @JoinColumn(name = "book_id") }
+    )
+    private Set<Genre> genres = new HashSet<>();
 
 }
