@@ -1,13 +1,15 @@
 package nnglebanov.daoexample.domain;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Getter
+@Data
+@AllArgsConstructor
 @RequiredArgsConstructor
+
 public class Genre {
-    @NonNull
     private Integer id;
     @NonNull
     private String title;
