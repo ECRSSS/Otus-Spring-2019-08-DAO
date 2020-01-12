@@ -2,15 +2,28 @@ package nnglebanov.daoexample.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
-
+@Entity
+@Table(name = "GENRES")
+@NamedEntityGraph(name = "genre-books",
+        attributeNodes = {@NamedAttributeNode("books")})
 public class Genre {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NonNull
-    private String title;
+    private String genreName;
+    private Date createdAt;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "GENRES_BOOKS",
+            joinColumns = { @JoinColumn(name = "genre_id") },
+            inverseJoinColumns = { @JoinColumn(name = "book_id") }
+    )
+    Set<Book> books;
 }

@@ -3,9 +3,9 @@ package nnglebanov.daoexample.services;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jline.reader.LineReader;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class IOService {
 
     public IOService(@Lazy LineReader lineReader) {
