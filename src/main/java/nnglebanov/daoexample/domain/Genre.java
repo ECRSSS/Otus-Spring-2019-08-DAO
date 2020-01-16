@@ -14,8 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "GENRES")
-@NamedEntityGraph(name = "genre-books",
-        attributeNodes = {@NamedAttributeNode("books")})
+/*@NamedEntityGraph(name = "genre-books",
+        attributeNodes = {@NamedAttributeNode("books")})*/
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
