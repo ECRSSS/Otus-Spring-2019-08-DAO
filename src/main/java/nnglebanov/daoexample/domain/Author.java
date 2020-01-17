@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -15,16 +14,14 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "AUTHORS")
-/*@NamedEntityGraph(name = "author-books",
-        attributeNodes = {@NamedAttributeNode("books")})*/
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
     private Date createdAt;
-
-    @ManyToMany(mappedBy = "authors")
-    Set<Book> books = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "AUTHOR_ID")
+    Set<Book> books;
 }

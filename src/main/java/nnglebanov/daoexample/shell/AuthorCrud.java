@@ -8,6 +8,7 @@ import nnglebanov.daoexample.services.IOService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ShellComponent
@@ -51,6 +52,7 @@ public class AuthorCrud {
 
     @ShellMethod("get all authors")
     public String authorGetAll(){
+        List<Author> authors = authorRepositoryJpa.findAll();
         return authorRepositoryJpa.findAll().stream().map(Author::toString).collect(Collectors.joining("/n"));
     }
 
