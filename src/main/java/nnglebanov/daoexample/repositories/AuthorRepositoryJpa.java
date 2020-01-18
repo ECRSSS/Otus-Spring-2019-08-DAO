@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface AuthorRepositoryJpa {
 
-    int count();
-
     Author save(Author author);
 
     void deleteById(int id);

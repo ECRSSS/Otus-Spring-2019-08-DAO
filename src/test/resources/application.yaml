@@ -4,7 +4,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: admin
     password: admin
-    data: test-data.sql
 logging:
   level:
     root: ERROR

@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface GenreRepositoryJpa {
 
-    int count();
-
     Genre save(Genre genre);
 
     void deleteById(int id);

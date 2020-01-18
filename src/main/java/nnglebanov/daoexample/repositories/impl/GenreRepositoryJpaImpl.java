@@ -1,7 +1,7 @@
 package nnglebanov.daoexample.repositories.impl;
 
-import nnglebanov.daoexample.domain.Author;
-import nnglebanov.daoexample.repositories.AuthorRepositoryJpa;
+import nnglebanov.daoexample.domain.Genre;
+import nnglebanov.daoexample.repositories.GenreRepositoryJpa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,38 +14,38 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public class AuthorRepositoryJpaImpl implements AuthorRepositoryJpa {
+public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public Author save(Author author) {
-        if (author.getId() <= 0) {
-            em.persist(author);
-            return author;
+    public Genre save(Genre genre) {
+        if (genre.getId() <= 0) {
+            em.persist(genre);
+            return genre;
         } else {
-            return em.merge(author);
+            return em.merge(genre);
         }
     }
 
     @Override
     public void deleteById(int id) {
         Query query = em.createQuery("delete " +
-                "from Author a " +
-                "where a.id = :id");
+                "from Genre g " +
+                "where g.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }
 
     @Override
-    public Optional<Author> findById(int id) {
-        return Optional.ofNullable(em.find(Author.class, id));
+    public Optional<Genre> findById(int id) {
+        return Optional.ofNullable(em.find(Genre.class, id));
     }
 
     @Override
-    public List<Author> findAll() {
-        TypedQuery<Author> query = em.createQuery("select a from Author a", Author.class);//  join fetch a.books
+    public List<Genre> findAll() {
+        TypedQuery<Genre> query = em.createQuery("select g from Genre g", Genre.class);//  join fetch a.books
         return query.getResultList();
     }
 }
