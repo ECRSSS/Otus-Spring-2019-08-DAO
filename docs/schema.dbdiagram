@@ -17,6 +17,13 @@ Table BOOKS as B {
   created_at datetime [not null,default: `now()`]
 }
 
+Table COMMENTS as C {
+  id int [pk, increment, not null]
+  comment_text varchar [not null]
+  created_at datetime [not null, default: `now()`]
+  book_id int [not null, ref: > B.id]
+}
+
 Table AuthorsBooks as AB {
   author_id int [not null, ref: > A.id]
   book_id int [not null, ref: > B.id]

@@ -7,7 +7,7 @@ import org.springframework.shell.standard.ShellMethod;
 import java.sql.SQLException;
 
 @ShellComponent
-public class ToolsCommands {
+public class ToolsCommandsShell {
 
     @ShellMethod("Open h2 console")
     public String console() throws SQLException {

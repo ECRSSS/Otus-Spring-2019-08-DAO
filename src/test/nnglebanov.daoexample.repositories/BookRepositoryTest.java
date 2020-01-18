@@ -41,6 +41,7 @@ public class BookRepositoryTest {
     @Test
     void returnOneAuthorTest() {
         val book = repository.findById(1).get();
+        assertThat(book.getComments().size()).isEqualTo(3);
         assertThat(book.getBookTitle()).isEqualTo("book-1");
     }
 

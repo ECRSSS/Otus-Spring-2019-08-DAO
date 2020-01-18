@@ -11,6 +11,9 @@ insert into BOOKS (book_title) values ('book-1');
 insert into BOOKS (book_title) values ('book-2');
 insert into BOOKS (book_title) values ('book-3');
 
+insert into COMMENTS (comment_text,book_id) values
+('comment1',1),('comment2',1),('comment3',1);
+
 insert into AUTHORS_BOOKS (author_id,book_id) values (1,1);
 insert into AUTHORS_BOOKS (author_id,book_id) values (1,2);
 insert into AUTHORS_BOOKS (author_id,book_id) values (2,2);

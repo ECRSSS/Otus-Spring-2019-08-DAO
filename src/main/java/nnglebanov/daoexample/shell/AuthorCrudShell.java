@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @ShellComponent
 @RequiredArgsConstructor
-public class AuthorCrud {
+public class AuthorCrudShell {
     @NonNull
     private final AuthorRepositoryJpa authorRepositoryJpa;
     @NonNull

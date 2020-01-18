@@ -1,6 +1,7 @@
 drop table IF EXISTS AUTHORS cascade;
 drop table IF EXISTS BOOKS cascade;
 drop table IF EXISTS GENRES cascade;
+drop table IF EXISTS COMMENTS cascade;
 drop table IF EXISTS AUTHORS_BOOKS cascade;
 drop table IF EXISTS GENRES_BOOKS cascade;
 
@@ -23,6 +24,13 @@ create TABLE "BOOKS" (
   "CREATED_AT" datetime NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "COMMENTS" (
+  "ID" SERIAL PRIMARY KEY NOT NULL,
+  "COMMENT_TEXT" varchar NOT NULL,
+  "CREATED_AT" datetime NOT NULL DEFAULT (now()),
+  "BOOK_ID" int NOT NULL
+);
+
 create TABLE "AUTHORS_BOOKS" (
   "AUTHOR_ID" int NOT NULL,
   "BOOK_ID" int NOT NULL
@@ -40,3 +48,5 @@ alter table "AUTHORS_BOOKS" add FOREIGN KEY ("BOOK_ID") REFERENCES "BOOKS" ("ID"
 alter table "GENRES_BOOKS" add FOREIGN KEY ("BOOK_ID") REFERENCES "BOOKS" ("ID");
 
 alter table "GENRES_BOOKS" add FOREIGN KEY ("GENRE_ID") REFERENCES "GENRES" ("ID");
+
+ALTER TABLE "COMMENTS" ADD FOREIGN KEY ("BOOK_ID") REFERENCES "BOOKS" ("ID");

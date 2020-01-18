@@ -5,7 +5,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 
@@ -38,6 +37,14 @@ public class Book {
             joinColumns = {@JoinColumn(name = "genre_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
-    private List<Genre> genres;
+    private Set<Genre> genres;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id")
+    private Set<Comment> comments;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 
 }
