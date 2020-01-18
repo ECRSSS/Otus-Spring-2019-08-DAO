@@ -21,3 +21,6 @@ spring:
 logging:
   level:
     root: ERROR
+
+localization:
+  locale: ru
