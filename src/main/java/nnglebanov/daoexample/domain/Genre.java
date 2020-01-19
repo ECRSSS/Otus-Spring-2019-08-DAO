@@ -23,4 +23,9 @@ public class Genre {
     private Integer id = 0;
     @CreationTimestamp
     private Date createdAt;
+
+    @PreRemove
+    private void removeGenresFromBooks() {
+        books.forEach(x -> x.getGenres().remove(this));
+    }
 }

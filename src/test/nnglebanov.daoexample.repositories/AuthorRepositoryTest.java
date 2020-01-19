@@ -2,13 +2,11 @@ package nnglebanov.daoexample.repositories;
 
 import lombok.val;
 import nnglebanov.daoexample.domain.Author;
-import nnglebanov.daoexample.repositories.impl.AuthorRepositoryJpaImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий Authors")
 @DataJpaTest
-@Import({AuthorRepositoryJpaImpl.class})
 @Sql(scripts = {"classpath:test-data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AuthorRepositoryTest {
 
     @Autowired
-    AuthorRepositoryJpaImpl repository;
+    AuthorRepository repository;
 
     @Autowired
     TestEntityManager em;

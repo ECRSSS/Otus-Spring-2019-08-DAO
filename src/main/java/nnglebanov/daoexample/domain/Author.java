@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "AUTHORS")
 public class Author {
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE})
     Set<Book> books;
     private String firstName;
     private String lastName;

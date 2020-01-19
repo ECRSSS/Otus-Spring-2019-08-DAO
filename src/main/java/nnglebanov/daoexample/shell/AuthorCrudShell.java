@@ -3,7 +3,7 @@ package nnglebanov.daoexample.shell;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nnglebanov.daoexample.domain.Author;
-import nnglebanov.daoexample.repositories.AuthorRepositoryJpa;
+import nnglebanov.daoexample.repositories.AuthorRepository;
 import nnglebanov.daoexample.services.IOService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthorCrudShell {
     @NonNull
-    private final AuthorRepositoryJpa authorRepositoryJpa;
+    private final AuthorRepository authorRepository;
     @NonNull
     private final IOService ioService;
 
@@ -51,7 +51,7 @@ public class AuthorCrudShell {
 
     @ShellMethod("get all authors")
     public String authorGetAll(){
-        return authorRepositoryJpa.findAll().stream().map(Author::toString).collect(Collectors.joining("/n"));
+        return authorRepository.findAll().stream().map(Author::toString).collect(Collectors.joining("/n"));
     }
 
     @ShellMethod("delete Author by id")

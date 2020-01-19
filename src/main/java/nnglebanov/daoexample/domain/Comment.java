@@ -25,4 +25,6 @@ public class Comment {
     private Integer id = 0;
     @CreationTimestamp
     private Date createdAt;
+
+
 }

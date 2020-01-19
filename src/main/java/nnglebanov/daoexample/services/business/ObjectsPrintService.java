@@ -2,7 +2,7 @@ package nnglebanov.daoexample.services.business;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import nnglebanov.daoexample.repositories.BookRepositoryJpa;
+import nnglebanov.daoexample.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ObjectsPrintService {
     @NonNull
-    private final BookRepositoryJpa bookRepositoryJpa;
+    private final BookRepository bookRepository;
     private final String DELIMITER = "-----------------";
 
     public void outAllBooks() {
         System.out.println(DELIMITER);
-        bookRepositoryJpa.findAll().forEach(
+        bookRepository.findAll().forEach(
                 x -> System.out.println(
                         "Book number: " + x.getId() + "\n" +
                                 "Book title: " + x.getBookTitle() + "\n" +

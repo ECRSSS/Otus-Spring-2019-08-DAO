@@ -2,13 +2,11 @@ package nnglebanov.daoexample.repositories;
 
 import lombok.val;
 import nnglebanov.daoexample.domain.Comment;
-import nnglebanov.daoexample.repositories.impl.CommentRepositoryJpaImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -18,13 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий Comment")
 @DataJpaTest
-@Import({CommentRepositoryJpaImpl.class})
 @Sql(scripts = {"classpath:test-data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CommentRepositoryTest {
 
     @Autowired
-    CommentRepositoryJpaImpl repository;
+    CommentRepository repository;
 
     @Autowired
     TestEntityManager em;

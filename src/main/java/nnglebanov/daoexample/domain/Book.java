@@ -23,7 +23,7 @@ public class Book {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToMany(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Author.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "AUTHORS_BOOKS",
             joinColumns = {@JoinColumn(name = "author_id")},
@@ -31,7 +31,7 @@ public class Book {
     )
     private Set<Author> authors;
 
-    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "GENRES_BOOKS",
             joinColumns = {@JoinColumn(name = "genre_id")},
@@ -39,12 +39,13 @@ public class Book {
     )
     private Set<Genre> genres;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "book_id")
     private Set<Comment> comments;
 
     public void addComment(Comment comment) {
         comments.add(comment);
     }
+
 
 }

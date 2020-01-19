@@ -1,14 +1,10 @@
 package nnglebanov.daoexample.repositories;
 
-import nnglebanov.daoexample.repositories.impl.AuthorRepositoryJpaImpl;
-import nnglebanov.daoexample.repositories.impl.BookRepositoryJpaImpl;
-import nnglebanov.daoexample.repositories.impl.GenreRepositoryJpaImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -16,17 +12,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Тестирование интеграции репозиториев")
 @DataJpaTest
-@Import({GenreRepositoryJpaImpl.class, BookRepositoryJpaImpl.class, AuthorRepositoryJpaImpl.class})
 @Sql(scripts = {"classpath:test-data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class RepositoriesCascadeSettingsTest {
 
     @Autowired
-    AuthorRepositoryJpaImpl authorRepository;
+    AuthorRepository authorRepository;
     @Autowired
-    BookRepositoryJpaImpl bookRepository;
+    BookRepository bookRepository;
     @Autowired
-    GenreRepositoryJpaImpl genreRepository;
+    GenreRepository genreRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @Autowired
     TestEntityManager em;
@@ -38,6 +35,7 @@ public class RepositoriesCascadeSettingsTest {
         assertThat(genreRepository.findAll().size()).isEqualTo(3);
         bookRepository.deleteById(1);
         assertThat(bookRepository.findAll().size()).isEqualTo(2);
+        assertThat(commentRepository.findAll().size()).isEqualTo(0);
         assertThat(genreRepository.findAll().size()).isEqualTo(3);
         assertThat(authorRepository.findAll().size()).isEqualTo(3);
     }
@@ -49,8 +47,9 @@ public class RepositoriesCascadeSettingsTest {
         assertThat(genreRepository.findAll().size()).isEqualTo(3);
         authorRepository.deleteById(1);
         assertThat(authorRepository.findAll().size()).isEqualTo(2);
-        assertThat(bookRepository.findAll().size()).isEqualTo(3);
+        assertThat(bookRepository.findAll().size()).isEqualTo(1);
         assertThat(genreRepository.findAll().size()).isEqualTo(3);
+        assertThat(commentRepository.findAll().size()).isEqualTo(0);
     }
 
     @Test

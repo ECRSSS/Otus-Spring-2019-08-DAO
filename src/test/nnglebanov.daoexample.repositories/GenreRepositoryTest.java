@@ -2,13 +2,11 @@ package nnglebanov.daoexample.repositories;
 
 import lombok.val;
 import nnglebanov.daoexample.domain.Genre;
-import nnglebanov.daoexample.repositories.impl.GenreRepositoryJpaImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -18,13 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий Genre")
 @DataJpaTest
-@Import({GenreRepositoryJpaImpl.class})
 @Sql(scripts = {"classpath:test-data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class GenreRepositoryTest {
 
     @Autowired
-    GenreRepositoryJpaImpl repository;
+    GenreRepository repository;
 
     @Autowired
     TestEntityManager em;

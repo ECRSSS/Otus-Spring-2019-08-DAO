@@ -2,13 +2,11 @@ package nnglebanov.daoexample.repositories;
 
 import lombok.val;
 import nnglebanov.daoexample.domain.Book;
-import nnglebanov.daoexample.repositories.impl.BookRepositoryJpaImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -19,13 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Репозиторий Books")
 @DataJpaTest
-@Import({BookRepositoryJpaImpl.class})
 @Sql(scripts = {"classpath:test-data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BookRepositoryTest {
 
     @Autowired
-    BookRepositoryJpaImpl repository;
+    BookRepository repository;
 
     @Autowired
     TestEntityManager em;
@@ -41,7 +38,6 @@ public class BookRepositoryTest {
     @Test
     void returnOneAuthorTest() {
         val book = repository.findById(1).get();
-        assertThat(book.getComments().size()).isEqualTo(3);
         assertThat(book.getBookTitle()).isEqualTo("book-1");
     }
 
@@ -63,6 +59,12 @@ public class BookRepositoryTest {
                 .filter(x -> x.getBookTitle()
                         .equals("newBookTitle")).findFirst().get();
         assertNotNull(savedBook);
+    }
+
+    @Test
+    void selectByComment() {
+        assertThat(repository.selectBooksWhithCommentLike("1").size())
+                .isEqualTo(1);
     }
 
 
