@@ -7,6 +7,7 @@ import nnglebanov.daoexample.domain.Book;
 import nnglebanov.daoexample.domain.Comment;
 import nnglebanov.daoexample.repositories.BookRepositoryJpa;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ public class CommentsService {
     @NonNull
     private final BookRepositoryJpa bookRepositoryJpa;
 
+    @Transactional
     public Book addCommentForBookById(int id, String commentMessage) {
         val optionalBook = bookRepositoryJpa.findById(id);
         if (optionalBook.isPresent()) {
@@ -22,7 +24,7 @@ public class CommentsService {
             comment.setBook(book);
             comment.setCommentText(commentMessage);
             book.addComment(comment);
-            return bookRepositoryJpa.save(book);
+            return book;
         } else {
             return null;
         }

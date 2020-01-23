@@ -20,9 +20,9 @@ public class Author {
     Set<Book> books;
     private String firstName;
     private String lastName;
+    @CreationTimestamp
+    private Date createdAt;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id = 0;
-    @CreationTimestamp
-    private Date createdAt;
 }

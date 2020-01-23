@@ -9,8 +9,8 @@ import java.util.Set;
 
 
 @Data
-@EqualsAndHashCode(exclude = "books")
-@ToString(exclude = "books")
+@EqualsAndHashCode(exclude = {"genres"})
+@ToString(exclude = {"genres"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -31,7 +31,7 @@ public class Book {
     )
     private Set<Author> authors;
 
-    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "GENRES_BOOKS",
             joinColumns = {@JoinColumn(name = "genre_id")},
@@ -39,7 +39,7 @@ public class Book {
     )
     private Set<Genre> genres;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "book_id")
     private Set<Comment> comments;
 
