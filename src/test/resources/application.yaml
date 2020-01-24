@@ -10,3 +10,6 @@ logging:
 shell:
   interactive:
     enabled: false
+
+localization:
+  locale: ru

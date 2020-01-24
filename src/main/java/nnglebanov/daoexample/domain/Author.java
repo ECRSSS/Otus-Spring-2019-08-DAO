@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -16,8 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "AUTHORS")
 public class Author {
-    @ManyToMany(mappedBy = "authors", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE})
-    Set<Book> books;
+    @ManyToMany(mappedBy = "authors")
+    List<Book> books;
     private String firstName;
     private String lastName;
     @Id

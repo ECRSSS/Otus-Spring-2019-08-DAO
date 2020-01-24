@@ -5,12 +5,12 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
-@EqualsAndHashCode(exclude = "books")
-@ToString(exclude = "books")
+@EqualsAndHashCode(exclude = {"genres"})
+@ToString(exclude = {"genres"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,29 +23,28 @@ public class Book {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToMany(targetEntity = Author.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "AUTHORS_BOOKS",
             joinColumns = {@JoinColumn(name = "author_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
-    private Set<Author> authors;
+    private List<Author> authors;
 
-    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "GENRES_BOOKS",
             joinColumns = {@JoinColumn(name = "genre_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
-    private Set<Genre> genres;
+    private List<Genre> genres;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "book_id")
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public void addComment(Comment comment) {
         comments.add(comment);
     }
-
 
 }
