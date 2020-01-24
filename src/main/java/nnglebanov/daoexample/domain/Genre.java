@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(exclude = "books")
@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "GENRES")
 public class Genre {
     @ManyToMany(mappedBy = "genres")
-    Set<Book> books;
+    List<Book> books;
     private String genreName;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

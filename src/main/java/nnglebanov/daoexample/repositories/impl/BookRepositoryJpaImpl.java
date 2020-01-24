@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +30,10 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
 
     @Override
     public void deleteById(int id) {
-        Query query = em.createQuery("delete " +
-                "from Book b " +
-                "where b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Book book = em.find(Book.class, id);
+        book.setComments(null);
+        book.setGenres(null);
+        em.remove(book);
     }
 
     @Override

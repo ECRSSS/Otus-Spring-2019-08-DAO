@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "AUTHORS")
 public class Author {
     @ManyToMany(mappedBy = "authors")
-    Set<Book> books;
+    List<Book> books;
     private String firstName;
     private String lastName;
     @CreationTimestamp

@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -29,7 +29,7 @@ public class Book {
             joinColumns = {@JoinColumn(name = "author_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
-    private Set<Author> authors;
+    private List<Author> authors;
 
     @ManyToMany(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -37,11 +37,11 @@ public class Book {
             joinColumns = {@JoinColumn(name = "genre_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
-    private Set<Genre> genres;
+    private List<Genre> genres;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JoinColumn(name = "book_id")
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public void addComment(Comment comment) {
         comments.add(comment);
