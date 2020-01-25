@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "GENRES")
 public class Genre {
     @ManyToMany(mappedBy = "genres")
-    List<Book> books;
+    private List<Book> books;
     private String genreName;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -43,7 +42,6 @@ public class AuthorRepositoryTest {
         assertThat(author.getBooks().size()).isEqualTo(2);
     }
 
-    @Transactional
     @DisplayName("Удалить автора по id")
     @Test
     void deleteOneAuthorTest() {

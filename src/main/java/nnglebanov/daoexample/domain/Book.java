@@ -9,8 +9,8 @@ import java.util.List;
 
 
 @Data
-@EqualsAndHashCode(exclude = {"genres"})
-@ToString(exclude = {"genres"})
+@EqualsAndHashCode(exclude = {"genres", "authors"})
+@ToString(exclude = {"genres", "authors"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,7 +23,7 @@ public class Book {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToMany(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "AUTHORS_BOOKS",
             joinColumns = {@JoinColumn(name = "author_id")},
@@ -31,7 +31,7 @@ public class Book {
     )
     private List<Author> authors;
 
-    @ManyToMany(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "GENRES_BOOKS",
             joinColumns = {@JoinColumn(name = "genre_id")},
@@ -45,6 +45,16 @@ public class Book {
 
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    @PreRemove
+    private void deleteFromGenresAndAuthors() {
+        for (Author a : authors) {
+            a.getBooks().remove(this);
+        }
+        for (Genre g : genres) {
+            g.getBooks().remove(this);
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import nnglebanov.daoexample.repositories.BookRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ public class ObjectsPrintService {
     private final BookRepository bookRepository;
     private final String DELIMITER = "-----------------";
 
+    @Transactional
     public void outAllBooks() {
         System.out.println(DELIMITER);
         bookRepository.findAll().forEach(

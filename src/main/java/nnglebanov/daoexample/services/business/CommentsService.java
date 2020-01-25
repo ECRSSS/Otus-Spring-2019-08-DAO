@@ -17,7 +17,7 @@ public class CommentsService {
 
     @Transactional
     public Book addCommentForBookById(int id, String commentMessage) {
-        val optionalBook = bookRepositoryJpa.findById(id);
+        val optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             val book = optionalBook.get();
             Comment comment = new Comment();

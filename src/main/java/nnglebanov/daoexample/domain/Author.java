@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "AUTHORS")
 public class Author {
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
     List<Book> books;
     private String firstName;
     private String lastName;
@@ -25,4 +25,10 @@ public class Author {
     private Integer id = 0;
     @CreationTimestamp
     private Date createdAt;
+
+    @PreRemove
+    private void removeAuthorsFromBooks() {
+        books.forEach(x -> x.getAuthors().remove(this));
+    }
+
 }
