@@ -1,32 +1,27 @@
-package nnglebanov.daoexample.services.business;
+package nnglebanov.daoexample.services.business
 
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
-import nnglebanov.daoexample.repositories.BookRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import nnglebanov.daoexample.repositories.BookRepository
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
-import java.util.stream.Collectors;
+import java.util.stream.Collectors
 
 @Service
-@AllArgsConstructor
-public class ObjectsPrintService {
-    @NonNull
-    private final BookRepository bookRepository;
-    private final String DELIMITER = "-----------------";
+class ObjectsPrintService(val bookRepository: BookRepository) {
 
+    private val DELIMITER = "-----------------"
     @Transactional
-    public void outAllBooks() {
-        System.out.println(DELIMITER);
-        bookRepository.findAll().forEach(
-                x -> System.out.println(
-                        "Book number: " + x.getId() + "\n" +
-                                "Book title: " + x.getBookTitle() + "\n" +
-                                "Book authors: " + x.getAuthors().stream()
-                                .map(y -> y.getFirstName() + " " + y.getLastName())
-                                .collect(Collectors.joining(","))
-                                + "\n" + DELIMITER
-                )
-        );
+    fun outAllBooks() {
+        println(DELIMITER)
+        bookRepository!!.findAll().forEach { x ->
+            System.out.println(
+                    "Book number: " + x.id + "\n" +
+                            "Book title: " + x.bookTitle + "\n" +
+                            "Book authors: " + x.authors?.stream()
+                            ?.map({ y -> y.firstName + " " + y.lastName })
+                            ?.collect(Collectors.joining(","))
+                            + "\n" + DELIMITER
+            )
+        }
     }
 }

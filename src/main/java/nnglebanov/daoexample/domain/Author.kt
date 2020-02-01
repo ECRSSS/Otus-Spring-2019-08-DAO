@@ -1,34 +1,25 @@
-package nnglebanov.daoexample.domain;
+package nnglebanov.daoexample.domain
 
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import nnglebanov.daoexample.helpers.Utils
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.util.*
+import java.util.stream.Collectors
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
+@Document
+data class Author(
+        @Field("firstname") var firstName: String,
+        @Field("lastName") var lastName: String,
+        @DBRef val books: MutableList<Book>?,
+        @Field("dateTime") val dateTime: Date
+) {
+    @Id var id: String = Utils.generateId()
 
-@Data
-@EqualsAndHashCode(exclude = "books")
-@ToString(exclude = "books")
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "AUTHORS")
-public class Author {
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
-    List<Book> books;
-    private String firstName;
-    private String lastName;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = 0;
-    @CreationTimestamp
-    private Date createdAt;
-
-    @PreRemove
-    private void removeAuthorsFromBooks() {
-        books.forEach(x -> x.getAuthors().remove(this));
+    override fun toString(): String {
+        return "${firstName} ${lastName} books(${books?.stream()?.map { x -> x.bookTitle }
+                ?.collect(Collectors.joining(","))})"
     }
-
 }

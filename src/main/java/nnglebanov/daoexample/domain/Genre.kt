@@ -1,31 +1,19 @@
-package nnglebanov.daoexample.domain;
+package nnglebanov.daoexample.domain
 
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import nnglebanov.daoexample.helpers.Utils
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.util.Date
 
-@Data
-@EqualsAndHashCode(exclude = "books")
-@ToString(exclude = "books")
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "GENRES")
-public class Genre {
-    @ManyToMany(mappedBy = "genres")
-    private List<Book> books;
-    private String genreName;
+
+@Document
+data class Genre(
+        @Field("genreName") val genreName: String,
+        @DBRef val books: MutableList<Book>?,
+        @Field("dateTime") val dateTime: Date) {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = 0;
-    @CreationTimestamp
-    private Date createdAt;
-
-    @PreRemove
-    private void removeGenresFromBooks() {
-        books.forEach(x -> x.getGenres().remove(this));
-    }
+    var id: String = Utils.generateId()
 }

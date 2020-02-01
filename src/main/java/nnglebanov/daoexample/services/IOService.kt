@@ -1,36 +1,30 @@
-package nnglebanov.daoexample.services;
+package nnglebanov.daoexample.services
 
-import org.apache.commons.lang3.math.NumberUtils;
-import org.jline.reader.LineReader;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.math.NumberUtils
+import org.jline.reader.LineReader
+import org.springframework.context.annotation.Lazy
+import org.springframework.stereotype.Service
 
 @Service
-public class IOService {
+class IOService(@param:Lazy private val lineReader: LineReader) {
 
-    public IOService(@Lazy LineReader lineReader) {
-        this.lineReader = lineReader;
+    fun readLine(): String {
+        return lineReader.readLine()
     }
 
-    private final LineReader lineReader;
-
-    public String readLine() {
-        return lineReader.readLine();
+    fun readLineWithMessage(message: String): String {
+        println(message)
+        return readLine()
     }
 
-    public String readLineWithMessage(String message) {
-        System.out.println(message);
-        return readLine();
-    }
-
-    public Integer readIntWithMessage(String message) {
+    fun readIntWithMessage(message: String): Int? {
         while (true) {
-            String value = readLineWithMessage(message);
+            val value = readLineWithMessage(message)
             if (NumberUtils.isParsable(value)) {
-                return Integer.parseInt(value);
+                return Integer.parseInt(value)
             } else {
-                System.out.println("This is not number, please input number");
-                continue;
+                println("This is not number, please input number")
+                continue
             }
         }
     }

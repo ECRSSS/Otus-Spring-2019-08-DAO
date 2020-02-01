@@ -1,12 +1,12 @@
-package nnglebanov.daoexample.services;
+package nnglebanov.daoexample.services
 
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.Resource
 
-public interface LocaleService {
+interface LocaleService {
 
-    String getMessage(String property);
+    fun getMessage(property: String): String
 
-    Resource getLocalizedFile(String fileName);
+    fun getLocalizedFile(fileName: String): Resource
 
-    void setLocale(String locale);
+    fun setLocale(locale: String)
 }

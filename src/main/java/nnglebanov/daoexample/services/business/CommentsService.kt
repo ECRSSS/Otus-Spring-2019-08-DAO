@@ -1,32 +1,31 @@
-package nnglebanov.daoexample.services.business;
+package nnglebanov.daoexample.services.business
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
-import nnglebanov.daoexample.domain.Book;
-import nnglebanov.daoexample.domain.Comment;
-import nnglebanov.daoexample.repositories.BookRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import nnglebanov.daoexample.domain.Book
+import nnglebanov.daoexample.domain.Comment
+import nnglebanov.daoexample.repositories.BookRepository
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
-@RequiredArgsConstructor
-public class CommentsService {
-    @NonNull
-    private final BookRepository bookRepository;
+class CommentsService {
+    private val bookRepository: BookRepository? = null
 
     @Transactional
-    public Book addCommentForBookById(int id, String commentMessage) {
-        val optionalBook = bookRepository.findById(id);
-        if (optionalBook.isPresent()) {
-            val book = optionalBook.get();
-            Comment comment = new Comment();
-            comment.setBook(book);
-            comment.setCommentText(commentMessage);
-            book.addComment(comment);
-            return book;
+    fun addCommentForBookById(id: String, commentMessage: String): Book? {
+        val optionalBook = bookRepository!!.findById(id)
+        return if (optionalBook.isPresent()) {
+            val book = optionalBook.get()
+            val comment = Comment(
+                    book,
+                    commentMessage,
+                    Date()
+            )
+            book.addComment(comment)
+            book
         } else {
-            return null;
+            null
         }
     }
 }

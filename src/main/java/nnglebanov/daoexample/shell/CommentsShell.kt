@@ -1,31 +1,25 @@
-package nnglebanov.daoexample.shell;
+package nnglebanov.daoexample.shell
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import nnglebanov.daoexample.services.IOService;
-import nnglebanov.daoexample.services.business.CommentsService;
-import nnglebanov.daoexample.services.business.ObjectsPrintService;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import nnglebanov.daoexample.services.IOService
+import nnglebanov.daoexample.services.business.CommentsService
+import nnglebanov.daoexample.services.business.ObjectsPrintService
+import org.springframework.shell.standard.ShellComponent
+import org.springframework.shell.standard.ShellMethod
 
 @ShellComponent
-@RequiredArgsConstructor
-public class CommentsShell {
-    @NonNull
-    private final CommentsService commentsService;
-    @NonNull
-    private final ObjectsPrintService objectsPrintService;
-    @NonNull
-    private final IOService ioService;
+class CommentsShell(private val commentsService: CommentsService,
+                    private val objectsPrintService: ObjectsPrintService,
+                    private val ioService: IOService) {
+
 
     @ShellMethod("add comment to book")
-    public String addCommentToBook() {
-        objectsPrintService.outAllBooks();
+    fun addCommentToBook(): String {
+        objectsPrintService!!.outAllBooks()
         return "новое состояние книги: \n" + commentsService.addCommentForBookById(
-                ioService.readIntWithMessage(
+                ioService.readLineWithMessage(
                         "Введите номер книги к которой хотите добавить комментарий"),
                 ioService.readLineWithMessage(
                         "Введите комментари к книге")
-        );
+        )!!
     }
 }

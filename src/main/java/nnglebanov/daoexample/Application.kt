@@ -1,13 +1,11 @@
-package nnglebanov.daoexample;
+package nnglebanov.daoexample
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
 
+fun main(args: Array<String>) {
+    SpringApplication.run(Application::class.java, *args)
+}
 
 @SpringBootApplication
-public class Application {
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class,args);
-    }
-}
+open class Application

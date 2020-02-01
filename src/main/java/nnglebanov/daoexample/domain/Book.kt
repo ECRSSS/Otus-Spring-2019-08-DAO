@@ -1,60 +1,23 @@
-package nnglebanov.daoexample.domain;
+package nnglebanov.daoexample.domain
 
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import nnglebanov.daoexample.helpers.Utils
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.util.*
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
+@Document
+data class Book(
+        @Field("bookTitle") val bookTitle: String,
+        @Field("authors") val authors: MutableList<Author>?,
+        @Field("genres") val genres: MutableList<Genre>?,
+        @Field("comments") val comments: MutableList<Comment>?,
+        @Field("dateTime")val dateTime: Date
+) {
+    @Id var id: String = Utils.generateId()
 
-@Data
-@EqualsAndHashCode(exclude = {"genres", "authors"})
-@ToString(exclude = {"genres", "authors"})
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "BOOKS")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = 0;
-    private String bookTitle;
-    @CreationTimestamp
-    private Date createdAt;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "AUTHORS_BOOKS",
-            joinColumns = {@JoinColumn(name = "author_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<Author> authors;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "GENRES_BOOKS",
-            joinColumns = {@JoinColumn(name = "genre_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<Genre> genres;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name = "book_id")
-    private List<Comment> comments;
-
-    public void addComment(Comment comment) {
-        comments.add(comment);
+    fun addComment(comment: Comment) {
+        comments?.add(comment)
     }
-
-    @PreRemove
-    private void deleteFromGenresAndAuthors() {
-        for (Author a : authors) {
-            a.getBooks().remove(this);
-        }
-        for (Genre g : genres) {
-            g.getBooks().remove(this);
-        }
-    }
-
 }
