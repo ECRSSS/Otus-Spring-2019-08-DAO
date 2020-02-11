@@ -21,3 +21,8 @@ insert into GENRES_BOOKS (book_id,genre_id) values (1,2);
 insert into GENRES_BOOKS (book_id,genre_id) values (2,2);
 insert into GENRES_BOOKS (book_id,genre_id) values (2,1);
 insert into GENRES_BOOKS (book_id,genre_id) values (3,3);
+
+insert into COMMENTS (book_id,comment_text) values (1,'Best book');
+insert into COMMENTS (book_id,comment_text) values (1,'Great book');
+insert into COMMENTS (book_id,comment_text) values (2,'Bad book');
+insert into COMMENTS (book_id,comment_text) values (3,'Like!@');

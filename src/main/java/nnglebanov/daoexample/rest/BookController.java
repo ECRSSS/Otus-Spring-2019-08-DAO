@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nnglebanov.daoexample.repositories.BookRepository;
 import nnglebanov.daoexample.rest.dto.BookDto;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin
 public class BookController {
     @NonNull
     private final BookRepository bookRepository;
