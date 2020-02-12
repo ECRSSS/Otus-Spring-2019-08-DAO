@@ -38,4 +38,9 @@ public class BookDto {
         bookDto.setCreatedAt(book.getCreatedAt());
         return bookDto;
     }
+
+    public static Book toEntity(BookDto bookDto) {
+        Book book = new Book();
+        book.setAuthors(bookDto.authors);
+    }
 }

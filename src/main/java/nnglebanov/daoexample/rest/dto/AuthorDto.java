@@ -20,4 +20,8 @@ public class AuthorDto {
         authorDto.setCreatedAt(author.getCreatedAt());
         return authorDto;
     }
+
+    public static Author toEntity(AuthorDto authorDto){
+        Author dto
+    }
 }
