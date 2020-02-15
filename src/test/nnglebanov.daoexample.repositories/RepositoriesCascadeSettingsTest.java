@@ -1,5 +1,6 @@
 package nnglebanov.daoexample.repositories;
 
+import nnglebanov.daoexample.domain.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class RepositoriesCascadeSettingsTest {
 
     @Autowired
     TestEntityManager em;
+
+    @Test
+    public void saveBook(){
+        authorRepository.findById(1);
+        genreRepository.findById(1);
+        Book newBook = new Book();
+        newBook.setBookTitle("newBookTitle");
+        newBook.setAuthors(authorRepository.findAll());
+        newBook.setGenres(genreRepository.findAll());
+        bookRepository.save(newBook);
+    }
 
     @Test
     public void deleteBookTest() {

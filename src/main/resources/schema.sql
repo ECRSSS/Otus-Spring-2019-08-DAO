@@ -28,17 +28,17 @@ CREATE TABLE "COMMENTS" (
   "ID" SERIAL PRIMARY KEY NOT NULL,
   "COMMENT_TEXT" varchar NOT NULL,
   "CREATED_AT" datetime NOT NULL DEFAULT (now()),
-  "BOOK_ID" int NOT NULL
+  "BOOK_ID" int
 );
 
 create TABLE "AUTHORS_BOOKS" (
-  "AUTHOR_ID" int NOT NULL,
-  "BOOK_ID" int NOT NULL
+  "AUTHOR_ID" int,
+  "BOOK_ID" int
 );
 
 create TABLE "GENRES_BOOKS" (
-  "BOOK_ID" int NOT NULL,
-  "GENRE_ID" int NOT NULL
+  "BOOK_ID" int,
+  "GENRE_ID" int
 );
 
 alter table "AUTHORS_BOOKS" add FOREIGN KEY ("AUTHOR_ID") REFERENCES "AUTHORS" ("ID");

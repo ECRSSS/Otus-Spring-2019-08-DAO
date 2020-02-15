@@ -27,5 +27,6 @@ public class Genre {
     @PreRemove
     private void removeGenresFromBooks() {
         books.forEach(x -> x.getGenres().remove(this));
+        books.clear();
     }
 }

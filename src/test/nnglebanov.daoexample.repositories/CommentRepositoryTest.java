@@ -27,13 +27,13 @@ public class CommentRepositoryTest {
     @Test
     void returnAllCommentsTest() {
         val comments = repository.findAll();
-        assertThat(comments.size()).isEqualTo(3);
+        assertThat(comments.size()).isEqualTo(4);
     }
 
     @Test
     void returnOneGenreTest() {
         val comment = repository.findById(1).get();
-        assertThat(repository.findById(1).get().getCommentText()).isEqualTo("comment1");
+        assertThat(repository.findById(1).get().getCommentText()).isEqualTo("Best book");
     }
 
     @Test
