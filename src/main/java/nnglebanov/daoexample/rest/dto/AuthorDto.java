@@ -22,6 +22,9 @@ public class AuthorDto {
     }
 
     public static Author toEntity(AuthorDto authorDto){
-        Author dto
+        Author author = new Author();
+        author.setFirstName(authorDto.firstName);
+        author.setLastName(authorDto.lastName);
+        return author;
     }
 }

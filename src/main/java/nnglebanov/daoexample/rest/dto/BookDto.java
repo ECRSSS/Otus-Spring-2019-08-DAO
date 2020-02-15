@@ -41,6 +41,8 @@ public class BookDto {
 
     public static Book toEntity(BookDto bookDto) {
         Book book = new Book();
-        book.setAuthors(bookDto.authors);
+        book.setBookTitle(bookDto.getBookTitle());
+        book.setAuthors(bookDto.getAuthors().stream().map(AuthorDto::toEntity).collect(Collectors.toList()));
+        return book;
     }
 }
