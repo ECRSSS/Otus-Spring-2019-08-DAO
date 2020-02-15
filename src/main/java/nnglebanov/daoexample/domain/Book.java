@@ -23,7 +23,7 @@ public class Book {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name = "AUTHORS_BOOKS",
             joinColumns = {@JoinColumn(name = "author_id")},

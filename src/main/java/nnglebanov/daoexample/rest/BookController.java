@@ -6,7 +6,6 @@ import nnglebanov.daoexample.domain.Book;
 import nnglebanov.daoexample.repositories.BookRepository;
 import nnglebanov.daoexample.rest.dto.AuthorDto;
 import nnglebanov.daoexample.rest.dto.BookDto;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +31,7 @@ public class BookController {
 
     @PutMapping("/api/books/{id}")
     public Book editBook(@RequestBody BookDto bookToEdit, @PathVariable Integer id) {
+        System.out.println("edit");
         return bookRepository.findById(id).map(book -> {
             book.setBookTitle(bookToEdit.getBookTitle());
             book.setAuthors(bookToEdit.getAuthors().stream().map(AuthorDto::toEntity).collect(Collectors.toList()));
@@ -39,7 +39,6 @@ public class BookController {
         }).orElseGet(()-> bookRepository.save(BookDto.toEntity(bookToEdit)));
     }
 
-    @Transactional
     @DeleteMapping("/api/books/{id}")
     public void deleteBook(@PathVariable Integer id){
         System.out.println(id);
