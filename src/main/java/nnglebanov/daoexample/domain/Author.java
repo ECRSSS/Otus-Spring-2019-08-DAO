@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "AUTHORS")
 public class Author {
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authors")
     List<Book> books;
     private String firstName;
     private String lastName;
