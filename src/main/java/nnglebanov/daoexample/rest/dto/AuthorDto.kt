@@ -5,9 +5,9 @@ import java.util.*
 
 
 class AuthorDto {
-    private var id: String? = null
-    private var firstName: String? = null
-    private var lastName: String? = null
+    var id: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
 
     companion object {
 

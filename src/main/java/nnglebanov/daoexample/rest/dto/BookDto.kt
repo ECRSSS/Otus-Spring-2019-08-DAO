@@ -5,17 +5,17 @@ import java.util.*
 
 class BookDto(var id: String? = null,
               var bookTitle: String? = null,
-              var authors: MutableList<AuthorDto>? = null) {
+              var authors: List<AuthorDto>? = null) {
 
 
     companion object {
 
 
         fun toDto(book: Book): BookDto {
-            return BookDto().also {
-                it.id = book.id
-                it.bookTitle = book.bookTitle
-                it.authors = book.authors?.map { author -> AuthorDto.toDto(author) }?.toMutableList()
+            return BookDto().apply {
+                id = book.id
+                bookTitle = book.bookTitle
+                authors = book.authors?.map { author -> AuthorDto.toDto(author) }?.toList() ?: listOf()
             }
         }
 
