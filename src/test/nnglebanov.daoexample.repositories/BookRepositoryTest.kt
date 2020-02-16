@@ -4,14 +4,13 @@ import nnglebanov.daoexample.domain.Author
 import nnglebanov.daoexample.domain.Book
 import nnglebanov.daoexample.domain.Comment
 import nnglebanov.daoexample.domain.Genre
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.annotation.DirtiesContext
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
+import org.springframework.test.annotation.DirtiesContext
 import java.util.*
 
 @DisplayName("Репозиторий Books")
@@ -50,7 +49,7 @@ class BookRepositoryTest {
     internal fun saveAuthorTest() {
         val newBook = Book(
                 bookTitle = "newBookTitle",
-                authors = mutableListOf(Author("PAVLIC","PETROV",books = null, dateTime = Date())),
+                authors = mutableListOf(Author("PAVLIC","PETROV", dateTime = Date(),books = null)),
                 comments = mutableListOf(Comment(null,"message",Date())),
                 genres = mutableListOf(Genre("nauka",null,Date())),
                 dateTime = Date()

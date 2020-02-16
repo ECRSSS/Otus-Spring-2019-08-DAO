@@ -1,4 +1,9 @@
 spring:
+  jackson:
+    serialization:
+      indent_output: true
+      write_dates_as_timestamps: false
+      write_durations_as_timestamps: false
   messages:
     basename: i18n/bundle
     encoding: UTF-8
@@ -24,3 +29,7 @@ logging:
 
 localization:
   locale: ru
+
+server:
+  port: 8090
+
