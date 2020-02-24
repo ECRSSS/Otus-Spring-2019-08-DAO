@@ -13,15 +13,13 @@ class ObjectsPrintService(val bookRepository: BookRepository) {
     @Transactional
     fun outAllBooks() {
         println(DELIMITER)
-        bookRepository!!.findAll().forEach { x ->
-            System.out.println(
-                    "Book number: " + x.id + "\n" +
-                            "Book title: " + x.bookTitle + "\n" +
-                            "Book authors: " + x.authors?.stream()
-                            ?.map({ y -> y.firstName + " " + y.lastName })
-                            ?.collect(Collectors.joining(","))
-                            + "\n" + DELIMITER
-            )
+        bookRepository.findAll().subscribe {
+            println("Book number: " + it.id + "\n" +
+                    "Book title: " + it.bookTitle + "\n" +
+                    "Book authors: " + it.authors?.stream()
+                    ?.map { y -> y.firstName + " " + y.lastName }
+                    ?.collect(Collectors.joining(","))
+            + "\n" + DELIMITER)
         }
     }
 }

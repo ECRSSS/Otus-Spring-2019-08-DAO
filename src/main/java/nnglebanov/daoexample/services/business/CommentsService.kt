@@ -6,6 +6,7 @@ import nnglebanov.daoexample.domain.Comment
 import nnglebanov.daoexample.repositories.BookRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import reactor.core.publisher.Mono
 import java.util.*
 
 @Service
@@ -13,19 +14,16 @@ class CommentsService {
     private val bookRepository: BookRepository? = null
 
     @Transactional
-    fun addCommentForBookById(id: String, commentMessage: String): Book? {
-        val optionalBook = bookRepository!!.findById(id)
-        return if (optionalBook.isPresent()) {
-            val book = optionalBook.get()
-            val comment = Comment(
-                    book,
-                    commentMessage,
-                    Date()
-            )
-            book.addComment(comment)
-            book
-        } else {
-            null
-        }
+    fun addCommentForBookById(id: String, commentMessage: String): Mono<Book> {
+        return bookRepository!!.findById(id)
+                .map {
+                    addComment(it, Comment(it,commentMessage,Date()))
+                }
+                .publish { bookRepository.save(it) }
+    }
+
+    private fun addComment(book: Book, comment: Comment): Book {
+        book.addComment(comment)
+        return book
     }
 }

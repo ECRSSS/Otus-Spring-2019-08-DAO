@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 
+@CrossOrigin
 @RestController
 class BookController(private val bookRepository: BookRepository) {
 
@@ -21,9 +22,9 @@ class BookController(private val bookRepository: BookRepository) {
 
     @PutMapping("/api/books/{id}")
     fun editBook(@RequestBody bookToEdit: Mono<BookDto>, @PathVariable id: String): Mono<Book> {
-        return bookRepository.save(bookRepository.findById(id).transform {
+        return bookRepository.findById(id).transform {
             Mono.zip(bookToEdit, it, this::setNewBookTitleAndAuthorsToBook)
-        })
+        }.publish { bookRepository.save(it) }
     }
 
     private fun setNewBookTitleAndAuthorsToBook(book: BookDto, oldBook: Book): Book {
