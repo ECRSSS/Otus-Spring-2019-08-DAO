@@ -7,6 +7,7 @@ import nnglebanov.daoexample.rest.dto.BookDto
 import org.springframework.web.bind.annotation.*
 
 
+@CrossOrigin
 @RestController
 class BookController(private val bookRepository: BookRepository) {
 
